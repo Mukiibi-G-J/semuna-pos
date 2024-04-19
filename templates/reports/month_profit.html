@@ -1,0 +1,52 @@
+{% extends 'base/base.html' %} 
+	{% block content %}
+	    {% load widget_tweaks %}
+	    {% load humanize %}
+	    {% load static %}
+
+
+<div class="content-page">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title"> Profit Summary</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                            <table class="table table-hover table-dark">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Profit Month Date</th>
+                                    <th scope="col"> Total Profit </th>
+                                    {% comment %}
+                                        <th scope="col">Handle</th> {% endcomment %}
+                                </tr>
+                                </thead>
+                              
+                        <tbody>
+                              	{% for profit in monthly_profits %}    	
+                            <tr>
+                            	<th scope="row">{{forloop.counter}}</th>
+                                <td>{{ profit.month|date:"M Y" }}</td>
+                       <td>{{ profit.total_profit|intcomma }}</td>
+                    	</tr>
+                                {% endfor %}
+
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+               
+                </div>
+              
+            </div>
+
+        </div>
+    </div>
+
+    {% endblock content %}

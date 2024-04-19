@@ -1,0 +1,114 @@
+{% extends 'base/base.html' %} {% block content %}
+<div class="content-page">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between mb-4"
+        >
+         
+          <a href="{% url 'products:add_category' %}" class="btn btn-primary add-list"
+            ><i class="las la-plus mr-3"></i>Add Category</a
+          >
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <div class="table-responsive rounded mb-3">
+          <table class="data-table table mb-0 tbl-server-info">
+            <thead class="bg-white text-uppercase">
+              <tr class="ligth ligth-data">
+                <th>
+                  <div class="checkbox d-inline-block">
+                    <input
+                      type="checkbox"
+                      class="checkbox-input"
+                      id="checkbox1"
+                    />
+                    <label for="checkbox1" class="mb-0"></label>
+                  </div>
+                </th>
+                {% comment %} <th>Image</th>
+                <th>Code</th> {% endcomment %}
+                <th>Category</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody class="ligth-body">
+              {% for categories in categories %}
+              <tr>
+                {% comment %} <td>
+                  <div class="checkbox d-inline-block">
+                    <input
+                      type="checkbox"
+                      class="checkbox-input"
+                      id="checkbox2"
+                    />
+                    <label for="checkbox2" class="mb-0"></label>
+                  </div>
+                </td> {% endcomment %}
+                {% comment %} <td>
+                  <div class="d-flex align-items-center">
+                    {% if categories.category_image %}
+                    <img
+                      src="{{ categories.category_image.url}}"
+                      class="img-fluid rounded avatar-50 mr-3"
+                      alt="image"
+                    />
+                    {% else %}
+                    <img
+                      src=""
+                      class="img-fluid rounded avatar-50 mr-3"
+                      alt="image"
+                    />
+
+                    {% endif %}
+                    <div>
+                      Organic Cream
+                      <p class="mb-0"><small>This is test Product</small></p>
+                    </div>
+                  </div>
+                </td> {% endcomment %}
+                <td>{{categories.category_id }}</td>
+                <td>{{categories.category_name }}</td>
+                <td>
+                  <div class="d-flex align-items-center list-action">
+                    <a
+                      class="badge badge-info mr-2"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title=""
+                      data-original-title="View"
+                      href="#"
+                      ><i class="ri-eye-line mr-0"></i
+                    ></a>
+                    <a
+                      class="badge bg-success mr-2"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title=""
+                      data-original-title="Edit"
+                      href="#"
+                      ><i class="ri-pencil-line mr-0"></i
+                    ></a>
+                    <a
+                      class="badge bg-warning mr-2"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title=""
+                      data-original-title="Delete"
+                      href="#"
+                      ><i class="ri-delete-bin-line mr-0 h-10"></i
+                    ></a>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <
+    </div>
+  </div>
+</div>
+{% endblock content %}

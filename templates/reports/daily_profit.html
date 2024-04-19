@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %} {% block content %}
+    {% load widget_tweaks %}
+    {% load humanize %}
+    {% load static %}
+
+
+<div class="content-page">
+    <div class="container-fluid">
+       <div class="row">
+          <div class="col-sm-12">
+             <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                   <div class="header-title">
+                      <h4 class="card-title">Bootstrap Datatables</h4>
+                   </div>
+                </div>
+                <div class="card-body">
+                   <p>Images in Bootstrap are made responsive with <code>.img-fluid</code>. <code>max-width: 100%;</code> and <code>height: auto;</code> are applied to the image so that it scales with the parent element.</p>
+                   <div class="table-responsive">
+                      <table id="datatable" class="table data-table table-striped">
+                         <thead>
+                            <tr class="ligth">
+                               <th>Date</th>
+                               <th>Product</th>
+                               <th>Profit</th>
+                               <th>Age</th>
+                               <th>Start date</th>
+                               <th>Salary</th>
+                            </tr>
+                         </thead>
+                         <tbody>
+                            {% for product_profit in daily_sales %}
+                            <tr>
+                               <td>{{ product_profit.day }}</td>
+                               <td>{{ product_profit.product_name }}</td>
+                               <td>{{ product_profit.profit|floatformat:"0"|intcomma  }}</td>
+
+                               <td>{{ product_profit.total_profit_per_day|floatformat:"0"|intcomma  }}</td>
+                               <td>2011/04/25</td>
+                               <td>$320,800</td>
+                            </tr>  
+                            {% endfor %}      
+                         </tbody>
+                         <tfoot>
+                            <tr>
+                                <th>Date</th>
+                                <th>Product</th>
+                                <th>Profit</th>
+                               <th>Age</th>
+                               <th>Start date</th>
+                               <th>Salary</th>
+                            </tr>
+                         </tfoot>
+                      </table>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    </div>
+{% endblock %}

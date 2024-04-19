@@ -1,0 +1,378 @@
+{% extends 'base/base.html' %} {% block content %} {% load widget_tweaks %}
+<div class="wrapper">
+  <div class="content-page">
+    <div class="container-fluid add-form-list">
+      {% if products %}
+     
+      <div
+      id="product_popup_purchase"
+      class="modal fade bd-example-modal-xl show"
+      tabindex="-1"
+      role="dialog"
+      aria-modal="true"
+      style="padding-right: 4px; display: block"
+    >
+      <div class="modal-dialog modal-xl  modal-dialog-scrollable" role="document" id="exampleModalCenter">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Uploaded data</h5>
+            <button
+            id="close_product_popup"
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true" id="close_my_popup">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+           <div class="card">
+            <form action="{% url 'products:add_purchase_upload' %}" method="post">
+             {% csrf_token %}
+             <div class="card-header">
+               <button type="submit" class="btn btn-primary">Submit</button>
+ 
+             </div>
+             <div class="card-body">
+                <table class="table">
+                   <thead>
+                      <tr>
+                        <th scope="col">UUID</th>
+                         <th scope="col">Product Name</th>
+                         <th scope="col">Description</th>
+                         <th scope="col">Quantity</th>
+                         <th scope="col">Purchase Price</th>
+                         <th scope="col">Sales Price</th>
+                         <th scope="col">Purchase Quantity</th>
+                         <th scope="col">Purchase Date</th>
+                         <th scope="col">Supplier</th>
+                      </tr>
+                   </thead>
+                   <tbody>
+
+                   {% for product in products %}
+
+                  
+                  {% comment %} {% if forloop.counter0|divisibleby:2 %}
+                 
+                {% endif %}
+                <tr class="table-default">
+                  <td colspan="9"><strong>New Products</strong></td>   
+              </tr>
+                {% if forloop.counter|divisibleby:2 or forloop.last %}
+                {% endcomment %}
+                {% comment %} {% endif %} {% endcomment %}
+                
+                     <tr class="table-default">
+                       <th scope="row">
+                         <input
+                           type="text"
+                           class="form-control"
+                           name="product_code"
+                           value="{{ product.product_code }}"
+                           readonly
+                         />
+                       <th scope="row">
+                         <input
+                           type="text"
+                           class="form-control"
+                           name="product_name"
+                           value="{{ product.product_name }}"
+                         />
+                       </th>
+                       <td>
+                         <input
+                           type="text"
+                           class="form-control"
+                           name="description"
+                           value="{{ product.description }}"
+                         />
+                       </td>
+                       <td>
+                         <input
+                           type="text"
+                           class="form-control"
+                           name="quantity"
+                           value="{{ product.quantity }}"
+                         />
+ 
+                       </td>
+                       <td>
+                         <input
+                           type="text"
+                           class="form-control"
+                           name="purchase_price"
+                           value="{{ product.cost_price }}"
+                         />
+ 
+                       </td>
+                       <td>
+                         <input
+                           type="text"
+                           class="form-control"
+                           name="sales_price"
+                           value="{{ product.sales_price }}"
+                         />
+ 
+                       </td>
+                       <td>
+                         <input
+                           type="text"
+                           class="form-control"
+                           name="purchase_quantity"
+                           value="{{ product.purchase_quantity }}"
+                         />
+ 
+                       </td>
+                       <td>
+                         <input
+                           type="text"
+                           class="form-control"
+                           name="purchase_date"
+                           value="{{ product.purchase_date }}"
+                         />
+ 
+                       </td>
+                       <td>
+                         <input
+                           type="text"
+                           class="form-control"
+                           name="supplier"
+                           value="{{ product.supplier }}"
+                         />
+ 
+                       </td>
+                     </tr>
+                       {% comment %} {% endfor %}
+                      {% for product in products.old_product %}
+                      {% if forloop.counter0|divisibleby:2 %}
+                            
+                          {% endif %}
+                          <tr class="table-default">
+                            <td colspan="9"><strong>OLD Products</strong></td>   
+                        </tr>
+                          {% if forloop.counter|divisibleby:2 or forloop.last %}
+                            
+                          {% endif %} {% endcomment %}
+                      
+                   {% endfor %}
+                   </tbody>
+                </table>
+              
+             </div>
+             </form>
+          </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+       {% endif %}
+      <div class="header-title">
+        <h4 class="card-title">Upload Execl File</h4>
+      </div>
+      <div class="input-group mb-4 mr-3  d-flex justify-content-between">
+        <form
+          class=""
+          method="POST"
+          enctype="multipart/form-data"
+          action="{% url 'products:upload_purchase' %}"
+        >
+          {% csrf_token %}
+          <div class="d-flex">
+            <div class="custom-file">
+              {% render_field form.file class="custom-file-input" id="inputGroupFile04" required="required" %}
+
+              
+
+              <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+            </div>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary ml-4" type="submit" href="{% url 'products:upload_purchase' %}">
+                Submit
+              </button>
+            </div>
+          </div>
+         
+        </form>
+          <div>
+              <button type="button" class="btn btn-primary mt-2" data-toggle="modal"
+              data-target="#exampleModalCenter">
+              Add Products
+              </button>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between">
+              <div class="header-title">
+                <h4 class="card-title">Add Purchase</h4>
+              </div>
+            </div>
+            <div class="card-body">
+              <form action="{% url 'products:add_single_purchase' %}" data-toggle="validator" method="POST">
+                {% csrf_token %}
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="dob">Date *</label>
+                      {% render_field form_purchase.purchase_date class="form-control" type="date" required="required" %}
+                      
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Search Product</label>
+                      <input
+                      type="search"
+                      class="form-control"
+                      placeholder="Search Product"
+                    
+                      id="foreign_key_input"
+                    />
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="modal-body container" id="results-box-single-sale"></div>
+                    {% csrf_token %}
+                    
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Code *</label>
+                      <input
+                      type="text"
+                      class="form-control"
+                      name = "product_uuid"
+                      data-errors="Please Enter Cost."
+                      id="product_code"
+                      readonly
+                    />
+                    <div class="help-block with-errors"></div>
+  
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Name *</label>
+                      <input
+                      type="text"
+                      class="form-control"
+                      name="product_name"
+                      data-errors="Please Enter Cost."
+                      id="product_name"
+                      readonly
+                    />
+                    <div class="help-block with-errors"></div>
+
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Quantity</label>
+                      {% render_field form_purchase.quantity class="form-control" %}
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Purchase Price</label>
+                    
+                     {% render_field form_purchase.purchase_price class="form-control"  %}
+
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Supplier</label>
+                      {% render_field form_purchase.supplier class="form-control" %}
+                    </div>
+                  </div>
+                 
+                 
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">
+                  Add Purchase
+                </button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        {% comment %} -------------------------------- Modal POP UP -------------- {% endcomment %}
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+       <div class="modal-dialog modal-dialog-centered" role="document">
+           <div class="modal-content">
+               <div class="modal-header">
+                   <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                   </button>
+               </div>
+               <div class="modal-body">
+                   <form method="POST" action={% url 'products:add_single_product' %}>
+                    {% csrf_token %}
+                       <div class="form-row mt-4">
+                           <div class="col">
+                            <label> Name</label>
+                               {% render_field products_form.product_name class="form-control" %}
+                           </div>
+                           <div class="col">
+                               {% render_field products_form.unit_id class="form-control" %}
+
+                           </div>
+                       </div>
+                       <div class="form-row mt-4 ">
+                           <div class="col">
+                            <label> Category</label>
+                               {% render_field products_form.category_id class="form-control" %}
+                           </div>
+                           <div class="col">
+                            <label> BRAND</label>
+                               {% render_field products_form.brand class="form-control" %}
+                           </div>
+                       </div>
+                       <div class="form-row mt-4">
+
+                           <div class="col">
+                        <label>Cost *</label>
+
+                               {% render_field products_form.unit_price class="form-control" %}
+                           </div>
+                           <div class="col">
+                            <label>Selling Price *</label>
+
+                               {% render_field products_form.cost class="form-control" %}
+                           </div>
+                       </div>
+                       <div class="form-row mt-4">
+                        <div class="col">
+                          <label>Quantity *</label>
+                          {% render_field products_form.quantity_in_stock class="form-control" %}
+                      </div>
+                            <div class="col">
+                              <label>Supplier *</label>
+                              {% render_field products_form.supplier class="form-control" %}
+                          </div>
+                          
+
+                       </div>
+                       <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" >Save changes</button>
+                    </div>
+                   </form>
+               </div>
+               
+           </div>
+       </div>
+   </div>
+
+{% endblock content %}

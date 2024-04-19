@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Receipt</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+		}
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
+		th {
+			background-color: #ddd;
+			text-align: left;
+			padding: 8px;
+		}
+		td {
+			padding: 8px;
+		}
+		.total {
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<h1>Receipt</h1>
+	<p>Date: {{ sale.date }}</p>
+	<p>Sale ID: {{ sale.id }}</p>
+	<table>
+		<thead>
+			<tr>
+				<th>Product</th>
+				<th>Price</th>
+				<th>Quantity</th>
+				<th>Discount</th>
+				<th>Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{{ sale.product.name }}</td>
+				<td>${{ sale.price }}</td>
+				<td>{{ sale.quantity }}</td>
+				<td>${{ sale.discount }}</td>
+				<td>${{ sale.total }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<p class="total">Total: ${{ sale.total }}</p>
+</body>
+</html>

@@ -1,0 +1,287 @@
+{% extends 'base/base.html' %} {% block content %} {% load widget_tweaks %}
+<div class="content-page">
+  <div class="container-fluid add-form-list">
+    <div class="row">
+      <!-- Extra large modal -->
+
+      {% if products %}
+     
+     <div
+     id="product_popup"
+     class="modal fade bd-example-modal-xl show"
+     tabindex="-1"
+     role="dialog"
+     aria-modal="true"
+     style="padding-right: 4px; display: block"
+   >
+     <div class="modal-dialog modal-xl  modal-dialog-scrollable" role="document" id="exampleModalCenter">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title">Edit Uploaded data</h5>
+           <button
+           id="close_product_popup"
+             type="button"
+             class="close"
+             data-dismiss="modal"
+             aria-label="Close"
+           >
+             <span aria-hidden="true">×</span>
+           </button>
+         </div>
+         <div class="modal-body">
+          <div class="card">
+           <form action="{% url 'products:add_product_upload' %}" method="post">
+            {% csrf_token %}
+            <div class="card-header">
+              <button type="submit" class="btn btn-primary">Submit</button>
+
+            </div>
+            <div class="card-body">
+               <table class="table">
+                  <thead>
+                     <tr>
+                       <th scope="col">UUID</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Purchase Price</th>
+                        <th scope="col">Sales Price</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Brand</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                  {% for product  in products %}
+                    <tr class="table-default">
+                      <th scope="row">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="uuid"
+                          value="{{ product.uuid }}"
+                          readonly
+                        />
+                      <th scope="row">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="product_name"
+                          value="{{ product.product_name }}"
+                        />
+                      </th>
+                      <td>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="description"
+                          value="{{ product.description }}"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="quantity"
+                          value="{{ product.quantity }}"
+                        />
+
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="purchase_price"
+                          value="{{ product.purchase_price }}"
+                        />
+
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="sales_price"
+                          value="{{ product.sales_price }}"
+                        />
+
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="category"
+                          value="{{ product.category }}"
+                        />
+
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="unit"
+                          value="{{ product.unit }}"
+                        />
+
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="brand"
+                          value="{{ product.brand }}"
+                        />
+
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+               </table>
+             
+            </div>
+            </form>
+         </div>
+         </div>
+        
+       </div>
+     </div>
+   </div>
+      {% endif %}
+
+      <div class="header-title">
+        <h4 class="card-title">Upload Execl File</h4>
+      </div>
+      <div class="input-group mb-4 mr-3 col-">
+        <form
+          class="d-flex"
+          method="post"
+          enctype="multipart/form-data"
+          action="{% url 'products:upload_products' %}"
+        >
+          {% csrf_token %}
+          <div class="custom-file">
+            {% render_field uploadform.file class="custom-file-input" id="inputGroupFile04" required="required" %}
+           
+            <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+          </div>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary ml-4" type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between">
+            <div class="header-title">
+              <h4 class="card-title">Add Product</h4>
+            </div>
+          </div>
+          <div class="card-body">
+            <form action="{% url 'products:add_single_product' %}" method="POST" data-toggle="validator" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+                
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Name *</label>
+
+                    {{ form.product_name }}
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+           
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Category *</label>
+                   
+                    {% render_field form.category_id  class="form-control" %}
+                  </div>
+                </div>
+           
+              
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Cost *</label>
+                    {% render_field form.unit_price class="form-control" placeholder="Enter Cost" data-errors="Please Enter Cost."%}
+                 
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Selling Price *</label>
+                    {% render_field form.cost  class="form-control" placeholder="Enter Selling Price" data-errors="Please Enter Price." %}
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+             
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Quantity *</label>
+                   
+                    {% render_field form.quantity_in_stock  class="form-control" placeholder="Enter Quantity" data-errors="Please Enter Quantity." %}
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Brand *</label>
+                    {% render_field form.brand class="form-control" %}
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Unit of Measure *</label>
+                    {% render_field form.unit_of_measure class="form-control" %}
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Reorder level *</label>
+                    {% render_field form.reorder_level class="form-control" %}
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+           
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Image</label>
+                    {% comment %} <input
+                      type="file"
+                      class="form-control image-file"
+                      name="pic"
+                      accept="image/*"
+                    /> {% endcomment %}
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Supplier</label>
+                    {% render_field form.supplier class="form-control" %}
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Description / Product Details</label>
+                
+                    {% render_field form.description  class="form-control" rows="4" %}
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary mr-2">
+                Add Product
+              </button>
+              <button type="reset" class="btn btn-danger">Reset</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page end  -->
+  </div>
+</div>
+
+{% endblock content %}

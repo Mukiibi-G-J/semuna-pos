@@ -1,0 +1,114 @@
+{% extends 'base/base.html' %} {% block content %} {% load widget_tweaks %}
+<div class="content-page">
+  <div class="container-fluid add-form-list">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between">
+            <div class="header-title">
+              <h4 class="card-title">Add Product</h4>
+            </div>
+          </div>
+          <div class="card-body">
+            <form method="POST" data-toggle="validator" action="{% url 'products:add_single_sell' %}">
+              <div class="row">
+          
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label> Date * </label>
+  
+                  
+                      {% render_field form.date_sold type="date" class="form-control"   %}
+
+  
+                      <div class="help-block with-errors"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                        <input
+                      type="search"
+                      class="form-control"
+                      placeholder="Search Product"
+                    
+                      id="foreign_key_input"
+                    />
+                    <div class="modal-body container" id="results-box-single-sale"></div>
+                    {% csrf_token %}
+                    
+                 
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Code *</label>
+  
+                      <input
+                      type="text"
+                      class="form-control"
+                      name = "product_uuid"
+                      data-errors="Please Enter Cost."
+                      id="product_code"
+                      readonly
+                    />
+  
+                      <div class="help-block with-errors"></div>
+                    </div>
+                  </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Name *</label>
+
+                    <input
+                    type="text"
+                    class="form-control"
+                    name="product_name"
+                    data-errors="Please Enter Cost."
+                    id="product_name"
+                    readonly
+                  />
+
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+             
+           
+               
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Quantity</label>
+               
+                      {% render_field form.quantity  class="form-control" placeholder="Enter Quantity" id="product_quantity"  %}
+
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Price *</label>
+                    {% render_field form.price class="form-control" placeholder="Enter Price" id="product_price" %}
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Discount *</label>
+                    {% render_field form.discount class="form-control" placeholder="Enter Price" id="product_price" %}
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary mr-2">
+                Add Product
+              </button>
+              <button type="reset" class="btn btn-danger">Reset</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page end  -->
+  </div>
+</div>
+
+{% endblock content %}

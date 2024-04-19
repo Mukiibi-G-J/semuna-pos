@@ -1,0 +1,58 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>POS Dash | Responsive Bootstrap 4 Admin Dashboard Template</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'css/backend-plugin.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/backend.css?v=1.0.0' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'vendor/@fortawesome/fontawesome-free/css/all.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'vendor/remixicon/fonts/remixicon.css' %}"
+    />
+      <script src="{% static 'htmx.min.js' %}" defer></script>
+     <script src="{% static 'js/htmx.min.js' %}"></script>
+
+  </head>
+  <body>
+    <!-- loader Start -->
+
+    <!-- <br /> -->
+    {% block content %}<br />
+    {% endblock content %}
+
+    <!-- Backend Bundle JavaScript -->
+    <script src="{% static 'js/backend-bundle.min.js' %}"></script>
+
+    <!-- Table Treeview JavaScript -->
+    <script src="{% static 'js/table-treeview.js' %}"></script>
+
+    <!-- Chart Custom JavaScript -->
+    <script src="{% static 'js/customizer.js' %}"></script>
+
+    <!-- Chart Custom JavaScript -->
+    <script async src="{% static 'js/chart-custom.js' %}"></script>
+
+    <!-- app JavaScript -->
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'application.js' %}"></script>
+
+  </body>
+</html>

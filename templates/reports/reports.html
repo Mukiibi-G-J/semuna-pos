@@ -1,0 +1,114 @@
+{% extends 'base/base.html' %} {% block content %}
+    {% load widget_tweaks %}
+    {% load humanize %}
+    {% load static %}
+
+
+    <div class="content-page">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Purchases Summary</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                            <table class="table table-hover table-dark">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Purchases Date</th>
+                                    <th scope="col">Purchases Total Cost</th>
+                                    {% comment %}
+                                        <th scope="col">Handle</th> {% endcomment %}
+                                </tr>
+                                </thead>
+                                {% for purchase in purchases %}
+                                    {{ purchase.purchases_dates }}
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>{{ purchase.purchase_date }}</td>
+                                        <td>{{ purchase.total_purchase_price|intcomma }} </td>
+                                    </tr>
+
+                                    </tbody>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Profit Summary</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                            <table class="table table-hover table-dark">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Week start Date</th>
+                                    <th scope="col">Total profit</th>
+                                    {% comment %}
+                                        <th scope="col">Handle</th> {% endcomment %}
+                                </tr>
+                                </thead>
+                                {% for profit in weekly_profit %}
+                                    <tbody>
+                                    <tr hx-get="/get_profit_for_single_date/{{ profit.week_start }}"
+                                        hx-trigger="click">
+                                        <th scope="row">{{ profit.counter }}</th>
+                                        <td>{{ profit.week_start }}</td>
+                                        <td>{{ profit.total_profit|intcomma }} </td>
+                                    </tr>
+
+                                    </tbody>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-6">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title"> Profit Summary Daily</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-hover table-dark">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Week start Date</th>
+                                    <th scope="col">Total profit</th>
+                                    {% comment %}
+                                        <th scope="col">Handle</th> {% endcomment %}
+                                </tr>
+                                </thead>
+                                {% for profit in weekly_profit %}
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">{{ profit.counter }}</th>
+
+                                        <td>{{ profit.week_start }}</td>
+                                        <td>{{ profit.total_profit|intcomma }} </td>
+                                    </tr>
+
+                                    </tbody>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock content %}
