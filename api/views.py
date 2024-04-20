@@ -4,19 +4,27 @@ from product.models import Products
 from .serializers import ProductsSerializers
 from django_filters.rest_framework import DjangoFilterBackend
 import django_filters as filters
+from django.db.models import Q
 
 
 class ProductFilter(filters.FilterSet):
-    product_name = filters.CharFilter(
-        field_name="product_name", lookup_expr="icontains"
-    )
-    product_code = filters.CharFilter(
-        field_name="product_code", lookup_expr="icontains"
-    )
+    # product_name = filters.CharFilter(
+    #     field_name="product_name", lookup_expr="icontains"
+    # )
+    # product_code = filters.CharFilter(
+    #     field_name="product_code", lookup_expr="icontains"
+    # )
+    q = filters.CharFilter(method="filter_q")
+
+    def filter_q(self, queryset, name, value):
+        return queryset.filter(
+            Q(product_name__icontains=value) | Q(product_code__icontains=value)
+        )
 
     class Meta:
         model = Products
-        fields = ["product_code", "product_name"]
+        # fields = ["product_code", "product_name"]
+        fields = []
 
 
 class ProductsListApiView(ListAPIView):
