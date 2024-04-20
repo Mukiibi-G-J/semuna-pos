@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "mptt",
     "rest_framework",
     "corsheaders",
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -165,3 +166,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://*",
     # Add other allowed origins as needed
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
