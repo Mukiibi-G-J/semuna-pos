@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     "mptt",
     "rest_framework",
     "corsheaders",
-    'django_filters',
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -169,5 +169,11 @@ CORS_ALLOWED_ORIGINS = [
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"]
 }
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://web-production-446e.up.railway.app/",
+    "https://localhost:8000"
+]
