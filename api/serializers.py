@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from product.models import Products
+from product.models import Products, Sales
 
 
 
@@ -16,3 +16,18 @@ class ProductsSerializers(serializers.ModelSerializer):
         data['price'] = data.pop('cost')
         data['cost_price'] = data.pop('unit_price')
         return data
+
+
+
+class SalesSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Sales
+        fields = [
+            'user',
+            'timestamp',
+            'product',
+            'price',
+            'quantity',
+            'total'
+        ]
+    

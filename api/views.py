@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from rest_framework.generics import ListAPIView, UpdateAPIView
-from product.models import Products
-from .serializers import ProductsSerializers
+from rest_framework.generics import ListAPIView, UpdateAPIView, ListCreateAPIView
+from product.models import Products, Sales
+from .serializers import ProductsSerializers,SalesSerializers
 from django_filters.rest_framework import DjangoFilterBackend
 import django_filters as filters
 from django.db.models import Q
@@ -45,3 +45,14 @@ class ProductsFilter(ListAPIView):
     filterset_class = ProductFilter
     # filter_backends = [filters.SearchFilter]
     # filterset_fields = ["product_code",'product_name']
+
+
+
+class ProductsSales(ListCreateAPIView):
+    queryset = Sales.objects.all()
+    serializer_class =SalesSerializers
+    def post(self, request, *args, **kwargs):
+        sales_data = request.data
+        # for sales in salse_data:
+            
+        return self.create(request, *args, **kwargs)

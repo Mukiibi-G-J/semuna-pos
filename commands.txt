@@ -1,0 +1,10 @@
+python manage.py migrate --run-syncdb
+python manage.py loaddata data.json
+python manage.py dumpdata > data.
+
+
+
+python manage.py dumpdata --exclude auth.permission --exclude auth.group --exclude auth.user --exclude admin.logentry > data.json
+python manage.py dumpdata --exclude auth.permission --exclude auth.group --exclude auth.user --exclude admin.logentry --exclude contenttypes.contenttype > data.json
+python manage.py dumpdata --exclude auth.permission --exclude auth.group --exclude auth.user --exclude admin.logentry --exclude contenttypes.contenttype --exclude sessions.session > data.json
+
