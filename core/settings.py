@@ -183,6 +183,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://*",
     "semunastore.com",
     "http://www.semunastore.com/"
+    "https://semunastore.com"
     
     
     # Add other allowed origins as needed
@@ -197,6 +198,7 @@ REST_FRAMEWORK = {
 CSRF_TRUSTED_ORIGINS = [
     "https://web-production-446e.up.railway.app",
     "https://localhost:8000"
-    "semunastore.com",
+    "https://semunastore.com",
     "http://www.semunastore.com/"
 ]
+
