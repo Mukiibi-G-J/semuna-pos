@@ -192,5 +192,6 @@ REST_FRAMEWORK = {
 
 CSRF_TRUSTED_ORIGINS = [
     "https://web-production-446e.up.railway.app",
-    "https://localhost:8000"
+    "https://localhost:8000",
+    "https://2302-102-86-6-70.ngrok-free.app"
 ]

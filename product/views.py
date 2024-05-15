@@ -394,7 +394,8 @@ class ListSale(generic.View):
     def get(self, request, *args, **kwargs):
         sales = (
             Sales.objects.all()
-            .order_by("-date_sold")
+            # .order_by("-date_sold")
+            .order_by("-timestamp")
             .annotate(
                 total_profit=Sum((F("price") - F("current_cost_price")) * F("quantity"))
             )  # .annotate(actual_stock_left=F("product__quantity_in_stock"))
